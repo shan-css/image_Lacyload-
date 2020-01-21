@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style type="text/css">
+	* {
+  box-sizing: border-box;
+}
+
+body {
+  color: #444;
+}
+
+.container {
+  width: 100%;
+  padding: 0 30px;
+  margin: 0 auto;
+  max-width: 720px;
+}
+
+a.btn {
+  display: inline-block;
+  padding: 6px 20px;
+  background: #ecf0f1;
+  border-radius: 6px;
+}
+
+.box {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  align-content: center;
+  padding: 50px 0;
+}
+.box img {
+  width: 100%;
+  opacity: 0;
+  transition: opacity 2s ease-in-out;
+}
+.box img.fade {
+  opacity: 1;
+}
+
+</style>
+<body>
+    
+    <header>
+        <div class="container">
+            <h1>Header</h1>
+        </div>
+    </header>
+
+    <main>
+
+        <div class="container">
+
+            <div class="box">
+
+                <img data-lazy="https://via.placeholder.com/600x100" class="lazy" data-srcset="">
+
+                <h3>Did We Tell You About Our Bananas?</h3>
+                <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                <a class="btn" href="#">I'm Still Quite Interested</a>
+            </div>
+
+            <div class="box">
+
+                    <img data-lazy="https://via.placeholder.com/600x200" class="lazy" data-srcset="">
+
+                <h3>Did We Tell You About Our Bananas?</h3>
+                <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                <a class="btn" href="#">I'm Still Quite Interested</a>
+            </div>
+
+            <div class="box">
+
+                    <img data-lazy="https://via.placeholder.com/600x300" class="lazy" data-srcset="">
+
+                <h3>Did We Tell You About Our Bananas?</h3>
+                <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                <a class="btn" href="#">I'm Still Quite Interested</a>
+            </div>
+
+            <div class="box">
+
+                    <img data-lazy="https://via.placeholder.com/600x400" class="lazy" data-srcset="">
+
+                <h3>Did We Tell You About Our Bananas?</h3>
+                <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                <a class="btn" href="#">I'm Still Quite Interested</a>
+            </div>
+
+            <div class="box">
+
+                    <img data-lazy="https://via.placeholder.com/600x480" class="lazy" data-srcset="">
+
+                <h3>Did We Tell You About Our Bananas?</h3>
+                <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                <a class="btn" href="#">I'm Still Quite Interested</a>
+            </div>
+
+            <div class="box">
+
+                    <img data-lazy="https://via.placeholder.com/600x500" class="lazy" data-srcset="">
+
+                <h3>Did We Tell You About Our Bananas?</h3>
+                <p>Yes I know you probably disregarded the earlier boasts as non-sequitur filler content, but its really true. It took years of gene splicing and combinatory DNA research, but our bananas can really dance.</p>
+                <a class="btn" href="#">I'm Still Quite Interested</a>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script src="app.js"></script>
+
+</body>
+</html>
+</body>
+<script type="text/javascript">
+	const targets = document.querySelectorAll("img.lazy");
+
+// ---------- Bad performance - too many poops :)
+// window.addEventListener('scroll', (event) => {
+//     targets.forEach(img => {
+//         console.log('poop');
+//         const rect = img.getBoundingClientRect().top;
+//         if(rect <= window.innerHeight){
+//             const src = img.getAttribute('data-lazy');
+//             img.setAttribute('src', src);
+//             img.classList.add('fade');
+//         }
+//     });
+// });
+// ---------- /Bad performance - too many poops :)
+
+const lazyLoad = target => {
+  const io = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      console.log(" <3 ");
+
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        const src = img.getAttribute("data-lazy");
+        const srcset = img.getAttribute("data-srcset");
+
+        img.setAttribute("srcset", srcset);
+        img.setAttribute("src", src);
+        img.classList.add("fade");
+
+        observer.disconnect();
+      }
+    });
+  });
+
+  io.observe(target);
+};
+
+targets.forEach(lazyLoad);
+
+</script>
+</html>
